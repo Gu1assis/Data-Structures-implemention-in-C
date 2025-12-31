@@ -5,7 +5,6 @@
 typedef struct {
    int* data; //Integer array
    size_t capacity;
-   //size_t count; --> for dynamic arrays
 } Array;
 
 Array* arrayConstructor(size_t arraySize){
@@ -28,24 +27,24 @@ void arrayDestructor(Array* array){
     free(array);
 }
 
-int* getData(Array* array, int index){
+int* getArrayData(Array* array, int index){
     if(index<array->capacity && index>=0){
         return (array->data + index);
     } 
     return NULL;
 }
 
-int main() {
-    // Example
-    Array* myArray = arrayConstructor(10);
-    *getData(myArray, 0) = 5;
-    printf("%i", *getData(myArray, 0));
-    arrayDestructor(myArray);
+int* setArrayData(Array* array, int index, int data){
+    *getArrayData(array, index) = data;
 }
 
-/*
-TODO
-- Array dinâmico
-- Escolher tipo do dado
-- Setter
-*/
+int main() {
+    // Constructor:
+    Array* myArray = arrayConstructor(10);
+    //Set:
+    setArrayData(myArray, 0, 5);
+    //View Results:
+    printf("%i", *getArrayData(myArray, 0));
+    //Free memory:
+    arrayDestructor(myArray);
+}
